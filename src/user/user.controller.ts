@@ -65,7 +65,7 @@ export class UserController {
     // @ApiParam(UserParam)
     async getProfileController(@Req() req: CustomRequest, @Res() res: Response, @Next() next: NextFunction){
       try {
-          const result = await this.userService.getProfileService(req.user)
+          const result = await this.userService.getProfileService(req.user._id)
           return res.status(result.statusCode).json(result)
       } catch (error) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

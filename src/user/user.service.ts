@@ -117,8 +117,8 @@ export class UserService {
         }
     }
 
-    async getProfileService(payload: UserInterface){
-        const userId  = payload._id;
+    async getProfileService(userId: string){
+        
 
         if (!userId) {
             return responseHandler({
