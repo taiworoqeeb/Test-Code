@@ -7,8 +7,8 @@ import { User, UserSchema } from './entities/user.entity';
 // import { UtilsModule } from 'src/util/index.module';
 import { Passport } from '../middleware/passport';
 import { ConfigModule } from '@nestjs/config';
-import { Account, AccountSchema } from 'src/account/entities/account.entity';
-import { Utils } from 'src/util';
+import { Account, AccountSchema } from '../account/entities/account.entity';
+import { Utils } from '../util';
 
 @Module({
   imports: [

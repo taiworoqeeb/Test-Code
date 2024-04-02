@@ -1,12 +1,9 @@
 import {config} from 'dotenv'
-import {extname} from 'path'
-import {diskStorage} from 'multer'
-import {Inject, HttpStatus, Injectable, PipeTransform,
+import {Injectable, PipeTransform,
     ArgumentMetadata, BadRequestException} from '@nestjs/common'
 import * as jwt from "jsonwebtoken";
 import {  User } from 'src/user/entities/user.entity'
-import { InjectModel } from '@nestjs/mongoose'
-import { Model, Types } from 'mongoose'
+import {Types } from 'mongoose'
 config()
 
 class ResponseHandler {
@@ -28,27 +25,6 @@ const responseHandler = (data: ResponseHandler) => {
   }
 }
 
-export class AppNotificationType {
-    user: string;
-    userId: string;
-    title: string;
-    message: string;
-    metadata: Meta;
-
-    constructor(user: string, userId: string, title: string, message: string, metadata: Meta) {
-      this.user = user;
-      this.userId = userId;
-      this.title = title;
-      this.message = message;
-      this.metadata = metadata;
-    }
-}
-
-class Meta {
-    type?: string;
-    sender?: string;
-    groupId?: string;
-}
 
 const verifyPhoneNumber = (phone: string) => {
     return /^([0]{1}|\+?234)([7-9]{1})([0|1]{1})([\d]{1})([\d]{7})$/g.test(phone);
