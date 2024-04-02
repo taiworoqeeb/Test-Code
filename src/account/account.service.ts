@@ -19,7 +19,7 @@ export class AccountService {
         private userService: UserService
     ){}
 
-    async initiateTransactionService(userId: string, data: TransactionDto, session: ClientSession):Promise<ResponseHandler>{
+    async initiateTransactionService(userId: string, data: TransactionDto, session?: ClientSession):Promise<ResponseHandler>{
         const user = await this.userService.userModel.findById(userId)
         if(!user){
             return responseHandler({
@@ -38,14 +38,14 @@ export class AccountService {
                 data:{}
             })
         }
-        // console.log("here")
+
 
         if(data.type === TransactionReason.FUND){
-            console.log("here")
+            
             const account = await this.accountModel.findOne({
                 userId: user._id
             })
-            // console.log(account)
+
             if(!account){
                 return responseHandler({
                     status: false,
@@ -166,6 +166,16 @@ export class AccountService {
                     data:{}
                 })
             }
+
+            if( account.balance < data.amount){
+                return responseHandler({
+                    status: false,
+                    statusCode: HttpStatus.BAD_REQUEST,
+                    message: "Insufficient balance",
+                    data:{}
+                })
+            }
+
            account.balance -= data.amount
            await account.save({session: session})
 

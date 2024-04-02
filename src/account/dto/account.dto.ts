@@ -16,7 +16,7 @@ export class TransactionDto{
     type: TransactionReason
 
     @ApiProperty({type: String, default: "1234567890", description: "The receiver userId"})
-    transferRecipient: string
+    transferRecipient?: string
 
 }
 
