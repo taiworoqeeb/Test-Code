@@ -29,7 +29,7 @@ export class UserController {
         const result = await this.userService.registerUserAccountService(body)
         return res.status(result.statusCode).json(result)
       } catch (error) {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
             message: errorMessageHandler(error),
             data: {}
@@ -63,9 +63,9 @@ export class UserController {
     @UseGuards(AuthGuard("jwt"))
     @ApiBearerAuth('Authorization')
     // @ApiParam(UserParam)
-    async getProfileController(@Req() req: CustomRequest, @Res() res: Response, @Next() next: NextFunction){
+    async getProfileController(@Param("userId") userId:string, @Req() req: Request, @Res() res: Response, @Next() next: NextFunction){
       try {
-          const result = await this.userService.getProfileService(req.user._id)
+          const result = await this.userService.getProfileService(userId)
           return res.status(result.statusCode).json(result)
       } catch (error) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

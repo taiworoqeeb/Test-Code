@@ -16,6 +16,7 @@ addColors(colors)
 
 const logger = createLogger({
     transports: [
+        process.env.NODE_ENV == "production" ?
         new transports.MongoDB({
             level: 'error',
             //mongo database connection link
@@ -31,7 +32,7 @@ const logger = createLogger({
 
             // Convert logs to a json format
             format.json())
-        }),
+        }) :
         new transports.Console({
             level: 'debug',
             format: format.combine(

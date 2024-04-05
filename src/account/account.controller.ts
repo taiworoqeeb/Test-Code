@@ -62,7 +62,6 @@ export class TransactionController{
     })
     async inititateTransactonConroller(@Body() body: TransactionDto, @Param("userId") userId: string, @Req() req: Request, @Res() res: Response, @Next() next: NextFunction){
       const session = await this.connection.startSession()
-
       try {
           session.startTransaction()
           const result = await this.accountService.initiateTransactionService(userId, body, session)

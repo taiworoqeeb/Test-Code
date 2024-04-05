@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AccountService } from './account.service';
-import { closeInMongodConnection, rootMongooseTestModule } from '../util/test-utils';
+import { AccountService } from '../account/account.service';
+import { closeInMongodConnection, rootMongooseTestModule } from './test-utils';
 import { MongooseModule, getModelToken } from '@nestjs/mongoose';
 import { User, UserDocument, UserSchema } from '../user/entities/user.entity';
-import { Account, AccountDocument, AccountSchema } from './entities/account.entity';
+import { Account, AccountDocument, AccountSchema } from '../account/entities/account.entity';
 import { UserService } from '../user/user.service';
 import { Utils } from '../util';
-import { Transaction, TransactionDocument, TransactionReason, TransactionSchema } from './entities/transaction.entity';
-import mongoose, { Model } from 'mongoose';
-import { userDoc, userDoc2 } from '../user/mock/user.mock';
+import { Transaction, TransactionDocument, TransactionReason, TransactionSchema } from '../account/entities/transaction.entity';
+import mongoose, { ClientSession, Model } from 'mongoose';
+import { userDoc, userDoc2 } from './mock/user.mock';
 import { accountDoc, accountDoc2 } from './mock/account.mock';
 import { HttpStatus } from '@nestjs/common';
-import { TransactionDto } from './dto/account.dto';
+import { TransactionDto } from '../account/dto/account.dto';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -19,6 +19,15 @@ describe('AccountService', () => {
   let mockAccountModel: Model<AccountDocument>
   let mockTransactionModel: Model<TransactionDocument>
   let oneTransactionId: string
+  const sessionMock = jest.fn() as unknown as ClientSession
+
+  // {
+  //   startSession: jest.fn((x)=>x),
+  //   startTransaction: jest.fn((x)=>x),
+  //   abortTransaction: jest.fn((x)=>x),
+  //   endSession: jest.fn((x)=>x),
+  //   commitTransaction: jest.fn((x)=>x)
+  // }
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({

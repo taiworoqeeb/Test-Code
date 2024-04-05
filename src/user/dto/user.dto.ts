@@ -67,17 +67,17 @@ export class UserUpdateDto{
     @ApiProperty({type: String, default: "John", description: "The User's Firstname"})
     @IsString()
     @IsNotEmpty()
-    firstname: string
+    firstname?: string
 
     @ApiProperty({type: String, default: "Doe", description: "The User's Lastname"})
     @IsNotEmpty()
     @IsString()
-    lastname: string
+    lastname?: string
 
     @ApiProperty({type: String, default: "1234567890", description: "The User's Phone Number"})
     @IsString()
     @IsNotEmpty()
-    phone_no: string
+    phone_no?: string
 }
 
 export class UserPasswordUpdateDto{

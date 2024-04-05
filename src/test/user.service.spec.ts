@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
+import { UserService } from '../user/user.service';
 import { MongooseModule, getModelToken } from '@nestjs/mongoose';
-import { User, UserDocument, UserSchema, UserInterface, accountStatus } from './entities/user.entity';
+import { User, UserDocument, UserSchema, UserInterface, accountStatus } from '../user/entities/user.entity';
 // import { UtilsModule } from 'src/util/index.module';
 import { Model } from 'mongoose';
 import { Utils } from '../util';
 import { Account, AccountDocument, AccountSchema } from '../account/entities/account.entity';
 import { userDoc } from './mock/user.mock';
 import { HttpStatus } from '@nestjs/common';
-import { closeInMongodConnection, rootMongooseTestModule } from '../util/test-utils';
-import { accountDoc } from '../account/mock/account.mock';
-import { UserPasswordUpdateDto } from './dto/user.dto';
+import { closeInMongodConnection, rootMongooseTestModule } from './test-utils';
+import { accountDoc } from './mock/account.mock';
+import { UserPasswordUpdateDto } from '../user/dto/user.dto';
 
 
 describe('UserService', () => {

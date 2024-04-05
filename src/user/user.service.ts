@@ -118,7 +118,7 @@ export class UserService {
     }
 
     async getProfileService(userId: string){
-        
+
 
         if (!userId) {
             return responseHandler({
